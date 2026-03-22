@@ -13,19 +13,18 @@ namespace Project.Entities
     }
     public class User
     {
-        private static int next_id = 1;
         public int Id { get; }
         public string FName { get; }
         public string LName { get; }
 
         public UserType Type { get; }
 
-        public User(string fname, string lname, UserType type)
+        public User(int id, string fname, string lname, UserType type)
         {
-            this.Id = next_id++;
-            this.FName = fname;
-            this.LName = lname;
-            this.Type = type;
+            Id = id;
+            FName = fname;
+            LName = lname;
+            Type = type;
         }
     }
 }

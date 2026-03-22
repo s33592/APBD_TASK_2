@@ -6,18 +6,15 @@ using System.Threading.Tasks;
 
 namespace Project.Entities
 {
-    abstract class Equipment
+    public abstract class Equipment
     {
         public int Id { get; }
         public string Name { get; }
-        public string Description { get; set; }
-
         public bool IsAvailable { get; set; }
-        protected Equipment(int id,string name,string description)
+        protected Equipment(int id,string name)
         {
             this.Id = id;
             this.Name = name;
-            this.Description = description;
             this.IsAvailable = true;
         }
 
