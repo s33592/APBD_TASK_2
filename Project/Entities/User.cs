@@ -14,18 +14,18 @@ namespace Project.Entities
     public class User
     {
         private static int next_id = 1;
-        public int id { get; }
-        public string fname { get; }
-        public string lname { get; }
+        public int Id { get; }
+        public string FName { get; }
+        public string LName { get; }
 
-        public UserType type { get; }
+        public UserType Type { get; }
 
         public User(string fname, string lname, UserType type)
         {
-            this.id = next_id++;
-            this.fname = fname;
-            this.lname = lname;
-            this.type = type;
+            this.Id = next_id++;
+            this.FName = fname;
+            this.LName = lname;
+            this.Type = type;
         }
     }
 }
