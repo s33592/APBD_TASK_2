@@ -14,11 +14,12 @@ namespace Project.Entities
         public DateTime RentDate { get; }
         public DateTime DueDate { get; }
 
-        public DateTime? ReturnDate { get;  }
+        public DateTime? ReturnDate { get; set; }
 
+        public decimal Penalty { get; set; }
         public bool isActive() { return ReturnDate != null; }
         public bool isOverdue() { return ReturnDate != null && ReturnDate > DueDate; }
-        Rental(int id,User user,Equipment equipment,DateTime rentDate,DateTime dueDate)
+        public Rental(int id,User user,Equipment equipment,DateTime rentDate,DateTime dueDate)
         {
             Id = id;
             User = user;
@@ -26,6 +27,11 @@ namespace Project.Entities
             RentDate = rentDate;
             DueDate = dueDate;
             ReturnDate = null;
+            Penalty = 0;
+        }
+
+        public override string ToString() {
+            return $"ID: {Id} | User: {User} | Equipment: {Equipment} | Rent Date: {RentDate} | Due Date: {DueDate}";
         }
 
 
