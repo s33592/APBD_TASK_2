@@ -2,11 +2,11 @@
 using Project.Exceptions;
 namespace Project.Services.RentalServices
 {
-    public class RentalService
+    public class RentalService : IRentalService
     {
         private readonly List<Rental> rentals = []; 
 
-        public void RentEquipment(int id,User user, Equipment equipment, DateTime rentDate, DateTime dueDate) {
+        public void RentEquipment(User user, Equipment equipment, DateTime rentDate, DateTime dueDate) {
             
             if (!equipment.IsAvailable)
                 throw new EquipmentNotAvailableException(equipment);
@@ -15,7 +15,7 @@ namespace Project.Services.RentalServices
                 throw new MaxActiveRentalsReachedException(user);
                 
         
-            Rental rental = new Rental(id,user, equipment, rentDate, dueDate);
+            Rental rental = new Rental(rentals.Count,user, equipment, rentDate, dueDate);
             equipment.IsAvailable = false;
 
             rentals.Add(rental);
