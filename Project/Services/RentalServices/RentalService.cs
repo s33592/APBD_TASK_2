@@ -6,26 +6,25 @@ namespace Project.Services.RentalServices
     {
         private readonly List<Rental> rentals = []; 
 
-        public void RentEquipment(User user, Equipment equipment, DateTime rentDate, DateTime dueDate) {
+        public Rental RentEquipment(User user, Equipment equipment, DateTime rentDate, DateTime dueDate) {
             
             if (!equipment.IsAvailable)
                 throw new EquipmentNotAvailableException(equipment);
 
             if (GetActiveRentals(user).Count >= user.MaxActiveRentals)
                 throw new MaxActiveRentalsReachedException(user);
-                
-        
-            Rental rental = new Rental(rentals.Count,user, equipment, rentDate, dueDate);
+
+            Rental rental = new Rental(rentals.Count+1, user, equipment, rentDate, dueDate);
             equipment.IsAvailable = false;
 
             rentals.Add(rental);
+
+            return rental;
         }
 
-        public void ReturnEquipment(int rentalId,DateTime returnDate) {
-            var rental = rentals.FirstOrDefault(rental => rental.Id == rentalId);
-
-            if (rental == null)
-                throw new RentalReturnedException(rentalId);
+        public void ReturnEquipment(Rental rental,DateTime returnDate) {
+            if (!GetActiveRentals(rental.User).Contains(rental))
+                throw new RentalReturnedException(rental);
 
             if (returnDate < rental.RentDate)
                 throw new ReturnBeforeRentException(rental);
